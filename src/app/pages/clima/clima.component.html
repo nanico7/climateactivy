@@ -12,6 +12,12 @@
       <img class="icon" [src]="'https://openweathermap.org/img/wn/' + clima.icon + '@2x.png'">
     <p class="desc">{{ clima.description | titlecase}}</p>
     
+      <div class="minmax">
+        <span>Min {{dadosClima()?.main?.temp_min}}</span>
+        <span>Max {{dadosClima()?.main?.temp_max}}</span>
+      </div>
+
+
     </div>
     <button (click)="navegarParaTelaDePesquisa()">Pesquisar</button> 
   } @else {
