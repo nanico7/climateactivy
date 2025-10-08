@@ -1,41 +1,56 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { RouteConfigLoadEnd, Router } from '@angular/router';
-import { OpenWeatherService } from '../../service/open-weather.service';
-import { Weather, WeatherResponse } from '../../models/weather-response.model';
+import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { OpenWeatherService } from '../../services/open-weather.service';
+import { WeatherResponse } from '../../models/weather-response.model';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { catchError, of, OperatorFunction } from 'rxjs';
-import { DecimalPipe, TitleCasePipe } from '@angular/common';
-import { NomeCidadeComponent } from "src/app/components/nome-cidade/nome-cidade.component"; 
+import { catchError, of } from 'rxjs';
+import { DecimalPipe } from '@angular/common';
+
+// Componentes
+import { NomeCidadeComponent } from '../../components/nome-cidade/nome-cidade.component';
+import { TemperaturaComponent } from '../../components/temperatura/temperatura.component';
+import { CarregandoComponent } from '../../components/carregando/carregando.component';
+import { ImgTituloComponent } from '../../components/img-titulo/img-titulo.component';
+import { TemperaturaMinMaxComponent } from '../../components/temperatura-min-max/temperatura-min-max.component';
+import { ButtonComponent } from '../../components/app-button/app-button.component';
 
 @Component({
   selector: 'app-clima',
   standalone: true,
-  imports: [DecimalPipe, TitleCasePipe, NomeCidadeComponent],
+  imports: [
+    DecimalPipe,
+    NomeCidadeComponent,
+    TemperaturaComponent,
+    CarregandoComponent,
+    ImgTituloComponent,
+    TemperaturaMinMaxComponent,
+    ButtonComponent
+  ],
   templateUrl: './clima.component.html',
   styleUrls: ['./clima.component.scss']
 })
-export class ClimaComponent  {
+export class ClimaComponent {
 
   navegador = inject(Router);
   openWeatherService = inject(OpenWeatherService);
+
+  // Cria um sinal reativo com os dados do clima
   dadosClima = toSignal<WeatherResponse | null>(
-    this.openWeatherService.buscarInfoClimaCidadeAtual()
-    .pipe(
-      catchError( err => {
+    this.openWeatherService.buscarInfoClimaCidadeAtual().pipe(
+      catchError(err => {
         console.error('Erro ao buscar dados do clima:', err);
-        return of(null)
+        return of(null);
       })
     ),
     { initialValue: null }
   );
 
-  constructor() { }
+  mensagemCarregando: string = 'Carregando temperatura';
+
+  constructor() {}
 
   navegarParaTelaDePesquisa() {
     this.navegador.navigate(['/pesquisa']);
-  }
-}
-
-function pipe(arg0: OperatorFunction<unknown, unknown>): NoInfer<import("@angular/core/rxjs-interop").ToSignalOptions<WeatherResponse | null | undefined>> & { initialValue?: undefined; requireSync?: false; } {
-  throw new Error('Function not implemented.');
+    this.mensagemCarregando = 'Carregando temperatura da cidade';
+  }
 }
