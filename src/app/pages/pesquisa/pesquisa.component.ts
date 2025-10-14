@@ -1,10 +1,22 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
+import {  AppClimaContainerComponent } from "../../components/clima-container/clima-container.component";
 
 @Component({
   selector: 'app-pesquisa',
-  imports: [],
   templateUrl: './pesquisa.component.html',
-  styleUrl: './pesquisa.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  styleUrls: ['./pesquisa.component.scss'],
+  imports: [AppClimaContainerComponent]
 })
-export class PesquisaComponent { }
+export class PesquisaComponent {
+
+  constructor() { }
+
+  cidadePesquisada = signal('Dois Vizinhos')
+
+  pesquisar(nomeCidade: string) {
+    if (nomeCidade.trim()) {
+      this.cidadePesquisada.set(nomeCidade.trim());
+      alert('Cidade pesquisada: ' + this.cidadePesquisada());
+    }
+  }
+}

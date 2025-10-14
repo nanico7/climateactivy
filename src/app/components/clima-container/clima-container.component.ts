@@ -24,7 +24,7 @@ export class AppClimaContainerComponent {
   openWeather = inject(OpenWeatherService);
 
   dadosClima = toSignal<WeatherResponse | null>(
-    this.openWeather.buscarInfoClimaCidadeAtual()
+    this.openWeather.buscarInfoClimaCidadeAtual('')
     .pipe(
       catchError(err => {
         console.error('Erro ao buscar dados do clima', err);
