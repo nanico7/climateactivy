@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-=======
 # See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
 
 # Compiled output
@@ -47,4 +40,3 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
->>>>>>> bd0030b (commit)

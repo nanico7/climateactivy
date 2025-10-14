@@ -1,1 +1,27 @@
-<app-clima-container [dadosClima]="dadosClima()" [mensagemCarregando]="mensagemCarregando" (onPesquisar)="navegarParaTelaDePesquisa()"></app-clima-container>
+<div class="clima-container">
+
+  <div class="card">
+    @if (dadosClima()){
+      <app-img-titulo>Clima Agora</app-img-titulo>
+
+      <app-nome-cidade>
+        {{dadosClima()?.name}}
+      </app-nome-cidade>
+
+      <app-temp-cidade>
+        {{dadosClima()?.main?.temp | number: '1.0-0'}}°C
+      </app-temp-cidade>
+
+      <app-img-titulo [clima]="dadosClima()!.weather[0]">
+     
+      </app-img-titulo>
+
+      <app-min-max [main]="dadosClima()!.main"></app-min-max>
+      <app-button (onClick)="navegarParaTelaDePesquisa()">Pesquisar</app-button>
+    } @else {
+      <app-loading-cidade mensagem ="Carregandotemperatura"> </app-loading-cidade>
+
+   
+    }
+  </div>
+</div>

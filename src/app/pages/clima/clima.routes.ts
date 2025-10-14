@@ -1,8 +1,8 @@
 import { Routes } from "@angular/router";
 
-export const climaRoutes : Routes = [
-    {
-        path: '',
-        loadComponent: () => import('./clima.component').then(r => r.ClimaComponent)
-    }
+export const climaRoutes: Routes = [
+  {
+    path: '',
+    loadComponent: () => import('./clima.page').then(r => r.ClimaComponent)
+  }
 ];
